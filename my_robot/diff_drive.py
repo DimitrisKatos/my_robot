@@ -20,7 +20,7 @@ class diff_drive(Node):
             self.listener_callback,
             10)
 
-    # Create a characteristic of the class. 
+    # Create a method for the class. 
     def listener_callback(self,msg):
         # Create a variable and Define the position of the scanner,
         # which will subcribe the distance.
