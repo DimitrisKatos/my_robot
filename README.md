@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Differential drive controller robot with two sensors.
 In this tutorial we will build a differential drive controller robot using xacro properties. We will add two sensors, a camera, lidar and finally we control the robot model by adding differential drive plugin. 
 
@@ -54,3 +55,6 @@ cd ~/ros2_ws/
 colcon build --packages-select my_robot
 ```
 
+=======
+## Two wheel robot with camera, lidar and differential drive controller.
+>>>>>>> 8fde00cbcd158ef666b3237f1276b8624de68c82
