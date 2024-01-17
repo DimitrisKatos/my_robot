@@ -156,6 +156,38 @@ In the robot model add the following.
     </inertial>
   </link>
 ```
+
+Also add a new gazebo plugin to robot.gazebo file. The XML code will enable lidar to the Gazebo simulator.
+```xml
+<!-- hokuyo -->
+      <gazebo reference="hokuyo">
+        <sensor name="laser" type="ray">
+            <pose> 0 0 0 0 0 0 </pose>
+            <visualize>true</visualize>
+            <update_rate>20</update_rate>
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>360</samples>
+                        <min_angle>-1.57</min_angle>
+                        <max_angle>1.57</max_angle>
+                    </horizontal>
+                </scan>
+                <range>
+                    <min>0.2</min>
+                    <max>12</max>
+                </range>
+            </ray>
+            <plugin name="laser_controller" filename="libgazebo_ros_ray_sensor.so">
+                <ros>
+                    <argument>~/out:=scan</argument>
+                </ros>
+                <output_type>sensor_msgs/LaserScan</output_type>
+                <frame_name>hokuyo</frame_name>
+            </plugin>
+        </sensor>
+    </gazebo>
+```
 Now let's visualize the robot to Gazebo. Run the next commands.
 ```
 cd ~/ros2_ws
@@ -167,8 +199,8 @@ ros2 launch my_robot my_robot_gazebo.launch.py
 ![Poll Mockup](./images/image.png)
 
 Now let's visualize the data from the hokuyo laser to RVIZ 2. In a new terminal begin Rviz and you need to make some changes:
-- From Displays Panel select ADD. In the new gui select RobotModel. Change the topic to /robot_descirption.
-- From Displays Panel select ADD. In the new gui select By topic and then the LaserScan.
+- Add RobotModel and change the topic to /robot_descriptiion.
+- Add /laser_scan from displays panel and change the topic.
 - Finally, change the Fixed Frame to base_link from the displays panel.
 
 You will see that the obstacles have been detected by hokuyo lidar.
